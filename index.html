@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vértice Mídia — curso de estratégia, conteúdo e tráfego para quem quer viver de mídia.">
+<meta property="og:title" content="Vértice Mídia">
+<meta property="og:description" content="Estratégia, conteúdo e tráfego sob o mesmo teto. Formação prática para quem quer viver de mídia.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 220'%3E%3Cpath d='M20 20 L100 180 L120 130 L180 20 L150 20 L108 108 L58 20 Z' fill='%23b8934c'/%3E%3C/svg%3E">
+<title>Vértice Mídia — O método por trás do conteúdo que vende</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --bg-alt:#141416;
+    --bg-card:#19191c;
+    --line: rgba(216,217,219,0.14);
+    --silver:#d8d9db;
+    --silver-dim:#8f9093;
+    --gold:#b8934c;
+    --gold-bright:#e7c583;
+    --text:#efeeea;
+    --text-dim:#9a9a9d;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:999;
+    opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block;}
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gold-bright);
+  }
+
+  .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- utility bar ---------- */
+  .utility{
+    background:#000;
+    border-bottom:1px solid var(--line);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--text-dim);
+  }
+  .utility .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:38px;
+  }
+  .utility .right{display:flex;gap:22px;}
+  .utility .right a:hover{color:var(--gold-bright);}
+  @media (max-width:720px){ .utility .right{display:none;} }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,10,11,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:84px;
+  }
+  .nav-left, .nav-right{display:flex;align-items:center;gap:28px;}
+  .nav-left a, .nav-right a{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--silver-dim);
+    transition:color .2s;
+  }
+  .nav-left a:hover, .nav-right a:hover{color:var(--text);}
+
+  .logo{
+    font-family:'Anton',sans-serif;
+    font-size:26px;
+    letter-spacing:.06em;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    white-space:nowrap;
+  }
+  .logo .v-mark{
+    color:var(--gold);
+  }
+  @supports (background-clip:text) or (-webkit-background-clip:text){
+    .logo .v-mark{
+      background:linear-gradient(120deg,var(--silver) 10%, var(--gold-bright) 45%, var(--gold) 60%, var(--silver) 90%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+  }
+  .logo .midia{
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:.32em;
+    color:var(--gold);
+    text-transform:uppercase;
+    align-self:center;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 24px;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:600;
+    border-radius:2px;
+    border:1px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    cursor:pointer;
+  }
+  .btn-gold{
+    background:linear-gradient(120deg,var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
+    color:#111;
+  }
+  .btn-gold:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(184,147,76,.55);}
+  .btn-outline{
+    border-color:var(--silver-dim);
+    color:var(--silver);
+    background:transparent;
+  }
+  .btn-outline:hover{border-color:var(--gold-bright); color:var(--gold-bright); transform:translateY(-2px);}
+  .btn-whatsapp{border-color:#3c5a45; color:#bfe6ce;}
+  .btn-whatsapp:hover{border-color:#5fbf83; color:#eafff1;}
+  .btn-sm{padding:10px 18px; font-size:11px;}
+
+  .burger{display:none;}
+  @media (max-width:900px){
+    .nav-left{display:none;}
+    .nav-right a:not(.btn){display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:64px 0 40px;
+    overflow:hidden;
+  }
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .hero-tagline{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    font-weight:500;
+    line-height:1.5;
+    max-width:220px;
+    letter-spacing:.02em;
+  }
+  .hero-tagline .rule{
+    display:block;
+    width:34px;
+    height:2px;
+    background:var(--gold);
+    margin-top:10px;
+  }
+  .hero-collection{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-align:right;
+    border-right:2px solid var(--gold);
+    padding-right:14px;
+  }
+
+  .hero-stage{
+    position:relative;
+    margin-top:-18px;
+    min-height:340px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .foil-text{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(70px, 15vw, 220px);
+    line-height:.85;
+    letter-spacing:.01em;
+    text-align:center;
+    width:100%;
+    color:var(--gold);
+    user-select:none;
+  }
+  @supports (background-clip:text) or (-webkit-background-clip:text){
+    .foil-text{
+      background:radial-gradient(circle at var(--mx,50%) var(--my,40%),
+          var(--gold-bright) 0%, var(--silver) 22%, var(--gold) 40%, var(--silver-dim) 60%, #3a3a3d 78%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      transition:background-position .05s linear;
+    }
+  }
+  .hero-figure{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+  .v-emblem{
+    width:min(38vw,220px);
+    opacity:.9;
+    filter:drop-shadow(0 18px 40px rgba(0,0,0,.6));
+  }
+
+  .hero-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+  }
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+
+  /* ---------- pillars ---------- */
+  .pillars{
+    background:#000;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:56px 0;
+  }
+  .pillars .wrap{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:36px;
+  }
+  .pillar{display:flex; gap:16px; align-items:flex-start;}
+  .pillar .num{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    width:30px;height:30px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .pillar h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .pillar p{font-size:13.5px; color:var(--text-dim); line-height:1.55;}
+  @media (max-width:800px){ .pillars .wrap{grid-template-columns:1fr; gap:28px;} }
+
+  /* ---------- method split ---------- */
+  .method{
+    padding:110px 0;
+    position:relative;
+  }
+  .method .wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .method-visual{
+    aspect-ratio:4/5;
+    border:1px solid var(--line);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(231,197,131,.14), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(216,217,219,.08), transparent 50%),
+      linear-gradient(160deg,#151517,#0a0a0b);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .method-visual svg{width:46%;}
+  .method-visual .grid-lines{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:.4;
+  }
+  .method-copy .eyebrow{margin-bottom:14px;}
+  .method-copy h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,4vw,44px);
+    font-weight:700;
+    line-height:1.1;
+    margin-bottom:20px;
+  }
+  .method-copy h2 span{
+    color:var(--gold-bright);
+  }
+  @supports (background-clip:text) or (-webkit-background-clip:text){
+    .method-copy h2 span{
+      background:linear-gradient(120deg,var(--gold-bright),var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+  }
+  .method-copy p{color:var(--text-dim); line-height:1.7; margin-bottom:28px; max-width:460px;}
+  .method-stats{display:flex; gap:40px; margin-bottom:32px;}
+  .method-stats div strong{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:30px;
+    color:var(--text);
+  }
+  .method-stats div span{font-size:11px; color:var(--text-dim); letter-spacing:.08em; text-transform:uppercase;}
+  @media (max-width:860px){ .method .wrap{grid-template-columns:1fr;} .method{padding:70px 0;} }
+
+  /* ---------- benefits ---------- */
+  .benefits{
+    background:var(--bg-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:44px 0;
+  }
+  .benefits .wrap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+  }
+  .benefit{display:flex; align-items:center; gap:14px;}
+  .benefit svg{width:26px;height:26px;flex-shrink:0;color:var(--gold-bright);}
+  .benefit h4{font-size:13px; letter-spacing:.03em;}
+  .benefit p{font-size:12px; color:var(--text-dim); margin-top:2px;}
+  @media (max-width:900px){ .benefits .wrap{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .benefits .wrap{grid-template-columns:1fr;} }
+
+  /* ---------- modules ---------- */
+  .modules{padding:100px 0;}
+  .modules-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:40px; gap:20px; flex-wrap:wrap;
+  }
+  .modules-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(26px,3.4vw,38px);
+    font-weight:700;
+  }
+  .modules-head a{
+    font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold-bright); border-bottom:1px solid var(--gold-bright); padding-bottom:2px;
+  }
+  .modules-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .module-card{
+    background:var(--bg-card);
+    padding:34px 28px;
+    transition:background .25s ease;
+  }
+  .module-card:hover{background:#1f1f23;}
+  .module-card .num{
+    font-family:'Anton',sans-serif;
+    font-size:34px;
+    color:var(--gold);
+    margin-bottom:22px;
+  }
+  @supports (-webkit-text-stroke:1px black){
+    .module-card .num{ color:transparent; -webkit-text-stroke:1px var(--gold); }
+  }
+  .module-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16.5px;
+    margin-bottom:10px;
+    letter-spacing:.01em;
+  }
+  .module-card p{font-size:13px; color:var(--text-dim); line-height:1.6;}
+  @media (max-width:860px){ .modules-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .modules-grid{grid-template-columns:1fr;} }
+
+  /* ---------- cta banner ---------- */
+  .cta-banner{
+    position:relative;
+    padding:90px 0;
+    text-align:center;
+    background:linear-gradient(180deg,#000,#0d0d0f);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .cta-banner h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(34px,6vw,64px);
+    letter-spacing:.01em;
+    color:var(--gold-bright);
+    margin-bottom:18px;
+  }
+  @supports (background-clip:text) or (-webkit-background-clip:text){
+    .cta-banner h2{
+      background:linear-gradient(120deg,var(--silver) 10%, var(--gold-bright) 50%, var(--silver) 90%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+  }
+  .cta-banner p{color:var(--text-dim); max-width:480px; margin:0 auto 34px; line-height:1.6;}
+  .cta-banner .hero-ctas{justify-content:center;}
+
+  /* ---------- footer ---------- */
+  footer{padding:60px 0 30px; background:#000;}
+  .footer-top{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:44px;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-brand p{color:var(--text-dim); font-size:13px; line-height:1.6; margin-top:14px; max-width:280px;}
+  .footer-social{display:flex; gap:12px; margin-top:20px;}
+  .footer-social a{
+    width:38px;height:38px;border:1px solid var(--line); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--silver); transition:.2s;
+  }
+  .footer-social a:hover{border-color:var(--gold-bright); color:var(--gold-bright); transform:translateY(-2px);}
+  .footer-col h5{
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--text-dim); margin-bottom:16px;
+  }
+  .footer-col ul li{margin-bottom:11px;}
+  .footer-col ul li a{font-size:13.5px; color:var(--silver-dim);}
+  .footer-col ul li a:hover{color:var(--text);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:24px; font-size:11.5px; color:var(--text-dim); flex-wrap:wrap; gap:10px;
+  }
+  @media (max-width:760px){ .footer-top{grid-template-columns:1fr; gap:32px;} }
+
+  /* ---------- floating whatsapp ---------- */
+  .float-wa{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,#22c35e,#159a45);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 30px -8px rgba(34,195,94,.55);
+    transition:transform .2s ease;
+  }
+  .float-wa:hover{transform:scale(1.08);}
+  .float-wa svg{width:28px;height:28px;color:#fff;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="utility">
+  <div class="wrap">
+    <span>TURMA COM VAGAS ABERTAS · GARANTA JÁ A SUA</span>
+    <div class="right">
+      <a href="#modulos">O QUE VOCÊ APRENDE</a>
+      <a href="#contato">FALE COM A GENTE</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <nav class="nav-left">
+      <a href="#pilares">Sobre</a>
+      <a href="#metodo">Método</a>
+      <a href="#modulos">Curso</a>
+    </nav>
+
+    <a href="#hero" class="logo">
+      <span class="v-mark">VÉRTICE</span><span class="midia">Mídia</span>
+    </a>
+
+    <nav class="nav-right">
+      <a href="#contato">Contato</a>
+      <a class="btn btn-gold btn-sm" href="https://pay.kiwify.com.br/T4b3UKj" target="_blank" rel="noopener">Comprar Curso</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-tagline">
+        MÍDIA QUE SE MOVE COM ESTRATÉGIA.
+        <span class="rule"></span>
+      </div>
+      <div class="hero-collection">
+        NOVA<br>TURMA<br>2026
+      </div>
+    </div>
+
+    <div class="hero-stage">
+      <div class="foil-text" id="foilText">VÉRTICE</div>
+      <div class="hero-figure">
+        <svg class="v-emblem" viewBox="0 0 200 220" fill="none">
+          <defs>
+            <linearGradient id="vgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#d8d9db"/>
+              <stop offset="45%" stop-color="#e7c583"/>
+              <stop offset="100%" stop-color="#b8934c"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 20 L100 180 L120 130 L180 20 L150 20 L108 108 L58 20 Z" fill="url(#vgrad)" opacity="0.9"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-ctas">
+        <a href="https://pay.kiwify.com.br/T4b3UKj" target="_blank" rel="noopener" class="btn btn-gold">Comprar Curso</a>
+        <a href="https://wa.me/5583991246401" target="_blank" rel="noopener" class="btn btn-outline btn-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.4 5.13L2 22l5.13-1.5a9.86 9.86 0 0 0 4.9 1.3h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm0 17.9h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.05.89.9-2.97-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.53 3.68-8.22 8.22-8.22 4.53 0 8.21 3.69 8.21 8.22 0 4.53-3.68 8.22-8.22 8.22Zm4.51-6.16c-.25-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.79.96-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02-.16 0-.44.06-.66.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.16 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.17.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://instagram.com/verticemidia.ofc" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          Instagram
+        </a>
+      </div>
+      <div class="eyebrow">Estratégia · Conteúdo · Tráfego</div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars" id="pilares">
+  <div class="wrap">
+    <div class="pillar reveal">
+      <div class="num">01</div>
+      <div>
+        <h3>Estratégia</h3>
+        <p>Posicionamento e planejamento de mídia construídos em cima de dados, não de achismo.</p>
+      </div>
+    </div>
+    <div class="pillar reveal">
+      <div class="num">02</div>
+      <div>
+        <h3>Conteúdo</h3>
+        <p>Roteiro, produção e edição pensados para reter atenção do primeiro ao último segundo.</p>
+      </div>
+    </div>
+    <div class="pillar reveal">
+      <div class="num">03</div>
+      <div>
+        <h3>Tráfego</h3>
+        <p>Distribuição e otimização de campanhas para transformar alcance em resultado real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="method" id="metodo">
+  <div class="wrap">
+    <div class="method-visual reveal">
+      <div class="grid-lines"></div>
+      <svg viewBox="0 0 200 220" fill="none">
+        <path d="M20 20 L100 180 L120 130 L180 20 L150 20 L108 108 L58 20 Z" fill="url(#vgrad)" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="method-copy reveal">
+      <div class="eyebrow">O Método Vértice</div>
+      <h2>Um curso construído para quem vive <span>de mídia de verdade.</span></h2>
+      <p>Chega de fórmula genérica. Você aprende o processo que a Vértice usa nos próprios clientes: planejamento, produção e veiculação andando juntos, do zero à campanha no ar.</p>
+      <div class="method-stats">
+        <div>
+          <strong>8</strong>
+          <span>Módulos práticos</span>
+        </div>
+        <div>
+          <strong>40h+</strong>
+          <span>De conteúdo</span>
+        </div>
+        <div>
+          <strong>100%</strong>
+          <span>Acesso vitalício</span>
+        </div>
+      </div>
+      <a href="https://pay.kiwify.com.br/T4b3UKj" target="_blank" rel="noopener" class="btn btn-gold">Comprar Curso</a>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="wrap">
+    <div class="benefit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h11v9H4zM15 10h3l3 3v3h-6zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+      <div><h4>Acesso imediato</h4><p>Comece assim que a compra é aprovada</p></div>
+    </div>
+    <div class="benefit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 3 7v5c0 5 4 8 9 9 5-1 9-4 9-9V7Z"/></svg>
+      <div><h4>Acesso vitalício</h4><p>Estude no seu ritmo, sem prazo final</p></div>
+    </div>
+    <div class="benefit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21c1.6-3.2 4.6-5 8-5s6.4 1.8 8 5"/></svg>
+      <div><h4>Suporte direto</h4><p>Dúvidas respondidas pela equipe Vértice</p></div>
+    </div>
+    <div class="benefit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 6v6c0 5.5 3.8 9.7 9 10 5.2-.3 9-4.5 9-10V6Z"/></svg>
+      <div><h4>Pagamento seguro</h4><p>Checkout protegido, cartão ou Pix</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="modules" id="modulos">
+  <div class="wrap">
+    <div class="modules-head reveal">
+      <h2>Dentro do curso</h2>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card reveal"><div class="num">01</div><h3>Fundamentos de mídia</h3><p>Como pensar posicionamento antes de qualquer câmera ligar.</p></div>
+      <div class="module-card reveal"><div class="num">02</div><h3>Roteiro que prende</h3><p>Estrutura de gancho, desenvolvimento e fechamento para vídeo curto.</p></div>
+      <div class="module-card reveal"><div class="num">03</div><h3>Produção enxuta</h3><p>Gravar e editar com o que você já tem, sem gastar com equipe grande.</p></div>
+      <div class="module-card reveal"><div class="num">04</div><h3>Identidade visual</h3><p>Construindo uma marca reconhecível, do feed ao anúncio.</p></div>
+      <div class="module-card reveal"><div class="num">05</div><h3>Tráfego pago</h3><p>Configuração de campanha, segmentação e leitura de métricas.</p></div>
+      <div class="module-card reveal"><div class="num">06</div><h3>Conversão</h3><p>Do alcance à venda: funil, oferta e acompanhamento de resultado.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="comprar">
+  <div class="wrap">
+    <h2>PRONTO PRA SUBIR<br>DE NÍVEL?</h2>
+    <p>Vagas limitadas para manter o suporte próximo. Garanta a sua na turma atual.</p>
+    <div class="hero-ctas">
+      <a href="https://pay.kiwify.com.br/T4b3UKj" target="_blank" rel="noopener" class="btn btn-gold">Comprar Curso</a>
+      <a href="https://wa.me/5583991246401" target="_blank" rel="noopener" class="btn btn-outline btn-whatsapp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.4 5.13L2 22l5.13-1.5a9.86 9.86 0 0 0 4.9 1.3h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm0 17.9h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.05.89.9-2.97-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.53 3.68-8.22 8.22-8.22 4.53 0 8.21 3.69 8.21 8.22 0 4.53-3.68 8.22-8.22 8.22Zm4.51-6.16c-.25-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.79.96-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02-.16 0-.44.06-.66.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.16 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.17.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="logo"><span class="v-mark">VÉRTICE</span><span class="midia">Mídia</span></a>
+        <p>Estratégia, conteúdo e tráfego sob o mesmo teto. Formação prática para quem quer viver de mídia.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/verticemidia.ofc" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          </a>
+          <a href="https://wa.me/5583991246401" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.4 5.13L2 22l5.13-1.5a9.86 9.86 0 0 0 4.9 1.3h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="#pilares">Sobre</a></li>
+          <li><a href="#metodo">Método</a></li>
+          <li><a href="#modulos">Módulos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="https://wa.me/5583991246401" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instagram.com/verticemidia.ofc" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="mailto:contato@verticemidia.com.br">contato@verticemidia.com.br</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vértice Mídia. Todos os direitos reservados.</span>
+      <span>Feito com foco em resultado.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/5583991246401" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.4 5.13L2 22l5.13-1.5a9.86 9.86 0 0 0 4.9 1.3h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm0 17.9h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.05.89.9-2.97-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.53 3.68-8.22 8.22-8.22 4.53 0 8.21 3.69 8.21 8.22 0 4.53-3.68 8.22-8.22 8.22Zm4.51-6.16c-.25-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.79.96-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02-.16 0-.44.06-.66.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.16 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.17.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+</a>
+
+<script>
+  // foil shimmer follows pointer / scroll
+  const foil = document.getElementById('foilText');
+  function setFoil(x, y){
+    foil.style.setProperty('--mx', x + '%');
+    foil.style.setProperty('--my', y + '%');
+  }
+  window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    setFoil(x, y);
+  });
+  window.addEventListener('scroll', () => {
+    const y = 30 + (window.scrollY % 300) / 300 * 40;
+    setFoil(50, y);
+  });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
